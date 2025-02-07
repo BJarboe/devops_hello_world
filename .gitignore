@@ -1,0 +1,7 @@
+.dockerignore
+hello-react/node_modules
+hello-react/public
+backend/lib
+backend/lib64
+backend/include
+backend/bin
