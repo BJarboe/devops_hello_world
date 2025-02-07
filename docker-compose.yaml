@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  frontend:
+    container_name: vite-frontend
+    build:
+      context: ./hello-react
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./hello-react:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+    networks:
+      - my-app-network
+  
+  backend:
+    container_name: fastapi-backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/app
+    environment:
+      - PYTHONBUFFERED=1
+    networks:
+      - my-app-network
+
+networks:
+  my-app-network:
+    driver: bridge
